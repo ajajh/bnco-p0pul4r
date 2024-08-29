@@ -1,0 +1,122 @@
+(function ($) {
+  $("#slide-home").parent().addClass("slider_container");
+  $("#form_pavos").parent().addClass("pavos_container");
+
+  //Header
+  if (window.matchMedia("(min-width:992px)").matches) {
+    $(window).scroll(function (event) {
+      var posY = window.pageYOffset;
+      if (posY > 1) {
+        $(".inside-header").css({
+          transform: "scale(0.9)",
+          transition: ".2s all",
+        });
+      } else {
+        $(".inside-header").css({
+          transform: "scale(1)",
+          transition: ".2s all",
+        });
+      }
+    });
+  }
+
+  //
+  // ─── EFECTO HOVER BOTONES HOME ──────────────────────────────────────────────────
+  //
+
+  $(".btones-hover").hover(
+    function () {
+      $(this).find(".img-hover-2").css({ opacity: 1 });
+      $(this).find(".img-hover-1").css({ opacity: 0 });
+    },
+    function () {
+      $(this).find(".img-hover-1").css({ opacity: 1 });
+      $(this).find(".img-hover-2").css({ opacity: 0 });
+    }
+  );
+
+  //Cambiar html leer más
+  $("a.product_type_simple").html(
+    '<i class="fa fa-eye" aria-hidden="true"></i>'
+  );
+
+  //Quitar clase grid-container en juguetes
+  $("body.archive div#page, body.single-product div#page").removeClass(
+    "grid-container"
+  );
+
+  //Quitar grid-container
+  $("#main_destacados #page").removeClass("grid-container");
+  $("#main_fanart #page").removeClass("grid-container");
+
+  //Submit formulario de búsqueda
+  $("#buscador form, .buscar_especial form").attr("name", "buscador_form");
+  $("#submit_buscador").click(function (e) {
+    e.preventDefault();
+    document.buscador_form.submit();
+  });
+
+  //Newsletter
+  $(".tnp-email").attr("placeholder", "E-mail");
+
+  //Evitar añadir al carrito
+  $(".add_to_cart_button").attr("href", "#");
+  $(".add_to_cart_button").removeClass("ajax_add_to_cart");
+  $(".add_to_cart_button").click(function (e) {
+    e.preventDefault();
+    var linkProducto = $(this)
+      .parent()
+      .find(".woocommerce-loop-product__link")
+      .attr("href");
+    window.location = linkProducto;
+  });
+
+  $("a.btn-modal").click(function (event) {
+    $(this).modal({
+      fadeDuration: 100,
+    });
+    return false;
+  });
+
+  //JUEGOS
+  $(".juego_img a").append(`<div class="hover-juego"><p>PLAY</p></div>`);
+
+  //CONFIRMACION DE NEWSLETTER
+  $("#newsletter").modal({
+    fadeDuration: 100,
+  });
+
+
+  /* -------------------------------------------------------------------------- */
+  /*    VALIDAR REDIRECCION DE CRY BABIES Y BEBES LLORONES PARA CONTAR CLICKS   */
+  /* -------------------------------------------------------------------------- */
+   $('.aws-search-field').on('keyup', function() {
+    var data = $(this).val();
+    if(data == 'bebes llorones') {
+      $('.aws-search-form').keypress(function (e) {
+        if(e.which == 13){
+            e.preventDefault();
+            window.location.href = 'https://www.mijugueteria.com.ec/4r0q';
+        }
+      });
+      $("#submit_buscador").click(function (e) {
+        e.preventDefault();
+        window.location.href = 'https://www.mijugueteria.com.ec/4r0q';
+      });
+    }
+
+    if(data == 'cry babies') {
+      $('.aws-search-form').keypress(function (e) {
+        if(e.which == 13){
+            e.preventDefault();
+            window.location.href = 'https://www.mijugueteria.com.ec/79fo';
+        }
+      });
+      $("#submit_buscador").click(function (e) {
+        e.preventDefault();
+        window.location.href = 'https://www.mijugueteria.com.ec/79fo';
+      });
+    }
+  });
+
+})(jQuery);
